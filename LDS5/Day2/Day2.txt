@@ -1,0 +1,61 @@
+#Day 2
+* Những gì đã làm hôm nay.
+- Tạo tài khoản Azure
+- Tạo create Group
+- Tạo thử các loại data storage account trên Azure
+- Tạo thử keyvault trên Azure
+- Tạo thử 1 app trong Azure Active Directory
+- Tạo thử 1 app databrick sử dụng data storage v2 sử dụng app đã tạo. -> Nhưng thất bại khi tạo
+cluster không thể start cluster lên được
+
+Error: Azure error message: Operation could not be completed as it results in 
+exceeding approved Total Regional Cores quota. Additional details - Deployment Model: 
+Resource Manager, Location: eastasia, Current Limit: 4, Current Usage: 4, 
+Additional Required: 4, (Minimum) New Limit Required: 8.
+
+* Tóm tắt những gì hiểu
+Azure Data lake Storage Gen 2 là một nơi để lưu trữ dữ liệu
+- cấu hình trong tab advanced GlobStorage hoặc General Purpose V2
+Thường được sử dụng trong việc thao tác phân tích với dữ liệu lớn
+-> hỗ trợ phân cấp như cấu trúc thư mục trên máy tính phân cách nhau bởi dấu gạch
+- Tính năng
++ Thường dữ dụng cho dữ liệu lớn.
++ Băng hỗ trợ lưu trữ lớn với thông lượng lớn
++ Tối ưu hóa performance vì không cần phải copy hay chuyển data trước khi xử lý
++ Dễ sử dụng vì có tổ chức cấu trúc thư mục -> tăng performance
+
+Azure Key Vault:
+- Lưu trữ và truy cập vào những API keys, passwords, certificates... -> những gì cần bảo mật
+- 2 loại:
++ Vaults hỗ trợ lưu trữ phần mềm ( chưa rõ là phầm mềm gì) và HSM-backed key, secret, certificates
++ Managed HSM pools chỉ hỗ trợ HSM-backed keys
+- Authentication
++ Mọi thao tác với Key Vaults Cần phải xác thực với nó.
++ 3 loại
+* Managed identities for Azure resources:
+-> Khi triển khai 1 ứng dụng trên Virtual Machine tại Azure mình có thể gán cái identity (chưa rõ khúc identity 
+ở đây là key trong Key Vault hay là Key Vault) => chưa test
+-> Không cần phải "managing the rotation of the secret" -> chưa hiểu cụm từ này là sau. tức không cần phải thêmidentity ở trên vì nó đã thêm sẵn hay sao ...
+-> Recommended
+* Service principal and certificate
+-> có thể sử dụng service princial và gắn certificate mà có chứa access vào key Vault => Chưa hiểu service principal là gì hiểu nôm na 1 cái j đó gắn certificate vô là nó cho truy cập vào Key Vault
+-> Owner hoặc Dev cần phải "rotate the certificate" => chưa hiểu....
+* Service principal and secret
+-> Chưa hiểu secret ở đây là gì
+- Lợi ích: 
++ có thể truy cập từ external -> những vẫn đảm bảo được tính bảo mật
++ Truy cập từ ứng dụng của mình thì được tối ưu performance." Keys are processed in HSMs that 
+reside in the same Azure datacenters as the applications. This method provides
+ better reliability and reduced latency than keys that reside in a separate location, 
+such as on-premises." -> separate location ở đây là sao chưa hiểu ...
+
+- Azure Data Factory
++ Là 1 Platform có thể giải quyết nhiều vấn đề về nhiều thứ liên quan data
++ Tạo ra quy trình của dữ liệu luồng dữ liệu, điều phối, chuyển đội dữ liệu
++ Có thể tiêu thụ data từ nhiều nguồn khác nhau
++ Có thể chuyển đổi dữ liệu để vẽ các biểu đồ
+=> Từ raw data thông qua Azure Data Factory có thể biến đổi data sang một loại ra có thể mang ý nghĩa về mặt phân tích thống kê
+ và lưu trữ tại datalake
++ Là một chuỗi các hệ thống kết nối với nhau cho data engineer
+
+
